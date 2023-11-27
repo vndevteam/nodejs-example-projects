@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -39,7 +39,11 @@ jobs:
           cache-dependency-path: ./nestjs-auth/pnpm-lock.yaml
       - name: Install dependencies
         run: pnpm install
-      #     - name: Lint code
-      #       run: pnpm lint
-      - name: Run tests
+#     - name: Lint code
+#       run: pnpm lint
+      - name: Build project
         run: pnpm test
+      - name: Run UT tests
+        run: pnpm test
+      - name: Run e2e tests
+        run: pnpm test:e2e

@@ -16,7 +16,7 @@ permissions:
   contents: read
 
 jobs:
-  test:
+  build-and-test:
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -41,5 +41,9 @@ jobs:
         run: pnpm install
 #     - name: Lint code
 #       run: pnpm lint
-      - name: Run tests
+      - name: Build project
         run: pnpm test
+      - name: Run UT tests
+        run: pnpm test
+      - name: Run e2e tests
+        run: pnpm test:e2e
