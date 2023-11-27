@@ -1,0 +1,44 @@
+name: "Build & Test project: nestjs-auth"
+on:
+  workflow_dispatch:
+  push:
+    branches: [ "main" ]
+    paths:
+      - 'nestjs-auth/**'
+      - '!**/README*.md'
+  pull_request:
+    branches: [ "main" ]
+    paths:
+      - 'nestjs-auth/**'
+      - '!**/README*.md'
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./nestjs-auth
+    strategy:
+      matrix:
+        node-version: [20.10.0]
+    steps:
+      - name: Copy repository
+        uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'pnpm'
+      - name: Install dependencies
+        run: pnpm install
+      #     - name: Lint code
+      #       run: pnpm lint
+      - name: Run tests
+        run: pnpm test
