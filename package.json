@@ -1,0 +1,23 @@
+{
+  "name": "nodejs-base-projects",
+  "version": "1.0.0",
+  "devDependencies": {
+    "@commitlint/cli": "^18.4.3",
+    "@commitlint/config-conventional": "^18.4.3",
+    "cz-conventional-changelog": "^3.3.0",
+    "husky": "^8.0.0"
+  },
+  "scripts": {
+    "commitlint": "commitlint --edit",
+    "format": "pnpm run --parallel --aggregate-output --filter \"*\" format",
+    "lint": "pnpm run --parallel --aggregate-output --filter \"*\" lint",
+    "pre-commit": "pnpm run --parallel --aggregate-output --filter \"*\" pre-commit",
+    "pre-push": "pnpm run --parallel --aggregate-output --filter \"*\" test",
+    "prepare": "husky install"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
