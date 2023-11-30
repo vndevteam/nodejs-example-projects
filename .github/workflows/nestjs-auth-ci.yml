@@ -39,8 +39,8 @@ jobs:
           cache-dependency-path: ./nestjs-auth/pnpm-lock.yaml
       - name: Install dependencies
         run: pnpm install
-#     - name: Lint code
-#       run: pnpm lint
+      - name: Lint code
+        run: pnpm lint
       - name: Build project
         run: pnpm test
       - name: Run UT tests
