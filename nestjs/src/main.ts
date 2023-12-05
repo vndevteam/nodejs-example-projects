@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ENV_KEYS, NODE_ENV } from './common/constants/constant';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
-import { BadRequestExceptionFilter } from './common/filters/bad-request-exception.filter';
+import { AllExceptionFilter } from './common/filters/all-exception.filter';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 
 /**
@@ -34,7 +34,7 @@ async function bootstrap() {
   app.useGlobalInterceptors(new TransformInterceptor());
 
   // Apply global exception filters
-  app.useGlobalFilters(new BadRequestExceptionFilter());
+  app.useGlobalFilters(new AllExceptionFilter());
 
   // Apply global validation pipes with whitelisting and custom exception handling
   app.useGlobalPipes(
