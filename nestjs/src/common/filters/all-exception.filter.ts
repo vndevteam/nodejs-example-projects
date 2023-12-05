@@ -71,7 +71,6 @@ export class AllExceptionFilter implements ExceptionFilter {
         code: status.toString(),
         message: 'INTERNAL_SERVER_ERROR',
       });
-
       this.logger.error(exception);
       this.logger.debug(exception.stack);
     }
