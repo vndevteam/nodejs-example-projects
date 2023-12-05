@@ -4,6 +4,7 @@ import { UsersModule } from './api/users/users.module';
 import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
 import { AppLoggerMiddleware } from './common/middleware/logger.middleware';
+import { Logger } from 'winston';
 
 @Module({
   imports: [
@@ -15,7 +16,7 @@ import { AppLoggerMiddleware } from './common/middleware/logger.middleware';
     UsersModule,
   ],
   controllers: [],
-  providers: [],
+  providers: [Logger],
 })
 export class AppModule {
   configure(consumer: MiddlewareConsumer) {

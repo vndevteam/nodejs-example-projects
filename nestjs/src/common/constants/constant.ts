@@ -1,5 +1,6 @@
 export const ENV_KEYS = {
   NODE_ENV: 'nodeEnv',
+  LOG_LEVEL: 'logLevel',
   DATABASE: 'db',
   JWT_SECRET: 'jwt.secret',
   JWT_EXPIRE_TIME: 'jwt.expiresIn',
@@ -8,7 +9,7 @@ export const ENV_KEYS = {
 
 export const NODE_ENV = {
   DEVELOPMENT: 'development',
-  PRODUCTION: ' production',
+  PRODUCTION: 'production',
 };
 
 export const REGEX = {

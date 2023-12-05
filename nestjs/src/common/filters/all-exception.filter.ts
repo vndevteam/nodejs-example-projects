@@ -34,7 +34,9 @@ export class AllExceptionFilter implements ExceptionFilter {
 
     const errors: Error[] = [];
     let status: number;
-
+    this.logger.log(
+      `[Request]: ${JSON.stringify({ body, params, query, url, headers })}`,
+    );
     if (exception instanceof HttpException) {
       status = exception.getStatus();
       const exceptionRes = exception.getResponse() as any;
@@ -57,10 +59,7 @@ export class AllExceptionFilter implements ExceptionFilter {
         });
       }
 
-      this.logger.debug(
-        `[Request]: ${JSON.stringify({ body, params, query, url, headers })}
-        [Error]: ${JSON.stringify(errors)}`,
-      );
+      this.logger.debug(`${JSON.stringify(errors)}`);
     } else {
       // Handle non-HttpExceptions with an internal server error status
       status = HttpStatus.INTERNAL_SERVER_ERROR.valueOf();
@@ -72,11 +71,8 @@ export class AllExceptionFilter implements ExceptionFilter {
         code: status.toString(),
         message: 'INTERNAL_SERVER_ERROR',
       });
-
-      this.logger.error(
-        `[Request]: ${JSON.stringify({ body, params, query, url, headers })}
-        ${exception.stack}`,
-      );
+      this.logger.error(exception);
+      this.logger.debug(exception.stack);
     }
     // Send a JSON response with standardized error format and appropriate status code
     response.status(status).json({

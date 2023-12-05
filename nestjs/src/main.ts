@@ -5,6 +5,8 @@ import { ENV_KEYS, NODE_ENV } from './common/constants/constant';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { AllExceptionFilter } from './common/filters/all-exception.filter';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
+import { WinstonModule } from 'nest-winston';
+import { newInstance } from './config/winston.logger';
 
 /**
  * Asynchronous function to bootstrap the NestJS application.
@@ -27,7 +29,11 @@ async function bootstrap() {
 
   // Set up logging for errors and warnings in production
   if (isProduction) {
-    app.useLogger(['error', 'warn']);
+    app.useLogger(
+      WinstonModule.createLogger({
+        instance: newInstance(configService.get(ENV_KEYS.LOG_LEVEL)),
+      }),
+    );
   }
 
   // Apply global interceptors
