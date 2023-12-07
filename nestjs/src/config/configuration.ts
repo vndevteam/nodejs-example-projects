@@ -1,3 +1,5 @@
+import { makeDataSourceOptions } from './data-source';
+
 export default () => ({
   port: parseInt(process.env.PORT, 10) || 3000,
   nodeEnv: process.env.NODE_ENV ?? 'development',
@@ -7,4 +9,5 @@ export default () => ({
     expiresIn: process.env.JWT_EXPIRES_IN ?? '3600s',
     refreshSecret: process.env.JWT_REFRESH_SECRET ?? '__JWT_REFRESH_SECRET__',
   },
+  database: makeDataSourceOptions(),
 });
