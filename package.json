@@ -9,10 +9,10 @@
   },
   "scripts": {
     "commitlint": "commitlint --edit",
-    "format": "pnpm run --parallel --aggregate-output --filter \"*\" format",
-    "lint": "pnpm run --parallel --aggregate-output --filter \"*\" lint",
-    "pre-commit": "pnpm run --parallel --aggregate-output --filter \"*\" pre-commit",
-    "pre-push": "pnpm run --parallel --aggregate-output --filter \"*\" test",
+    "format": "pnpm -r --workspace-concurrency=1 --filter \"*\" format",
+    "lint": "pnpm -r --workspace-concurrency=1 --filter \"*\" lint",
+    "pre-commit": "pnpm -r --workspace-concurrency=1 --filter \"*\" pre-commit",
+    "pre-push": "pnpm -r --workspace-concurrency=1 --filter \"*\" test",
     "prepare": "husky install"
   },
   "config": {

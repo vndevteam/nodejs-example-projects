@@ -57,10 +57,10 @@
   },
   "lint-staged": {
     "./{src,test}/**/*.ts": [
-      "eslint"
+      "eslint --fix"
     ],
     "*.{json,md,html,js,jsx,ts,tsx}": [
-      "prettier"
+      "prettier --write"
     ]
   },
   "jest": {
