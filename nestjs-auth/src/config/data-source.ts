@@ -11,7 +11,7 @@ export const makeDataSourceOptions = (): DataSourceOptions => {
     entities: [__dirname + '/../**/*.entity{.ts,.js}'],
     migrations: [__dirname + '/../**/migrations/*{.ts,.js}'],
     logging: Boolean(process.env.DB_LOGGING || 'false'),
-    synchronize: false, // Setting synchronize: true shouldn't be used in production - otherwise you can lose production data.
+    synchronize: true, // Setting synchronize: true shouldn't be used in production - otherwise you can lose production data.
   };
 
   return dataSource;

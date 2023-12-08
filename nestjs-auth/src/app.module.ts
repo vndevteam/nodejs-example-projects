@@ -1,34 +1,27 @@
-import { DynamicModule, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth-typeorm/auth.module';
 import { UsersModule } from './users/users.module';
 import { UserEntity } from './users/entities/user.entity';
 import { RegisterUserDto } from './users/dto/register-user.dto';
-import { EntitySchema, MixedList } from 'typeorm';
+import { DataSourceOptions } from 'typeorm';
 import { TypeOrmModule } from '@nestjs/typeorm';
-
-export const createTypeOrmModule = (
-  // eslint-disable-next-line @typescript-eslint/ban-types
-  entities: MixedList<Function | string | EntitySchema>,
-): DynamicModule => {
-  return TypeOrmModule.forRoot({
-    type: 'mysql',
-    host: 'localhost',
-    port: 3306,
-    username: 'root',
-    password: '12345678',
-    database: 'vndevteam_nest_auth',
-    synchronize: true, // Setting synchronize: true shouldn't be used in production - otherwise you can lose production data.
-    autoLoadEntities: true,
-    logging: true,
-    entities: entities,
-  });
-};
+import configuration from './config/configuration';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { dataSourceFactory } from './config/data-source';
 
 @Module({
   imports: [
-    createTypeOrmModule([UserEntity]),
+    ConfigModule.forRoot({ isGlobal: true, load: [configuration] }),
+    TypeOrmModule.forRootAsync({
+      imports: [ConfigModule],
+      inject: [ConfigService],
+      useFactory: (config: ConfigService) => {
+        return config.get('database') as DataSourceOptions;
+      },
+      dataSourceFactory: dataSourceFactory,
+    }),
     AuthModule.register<UserEntity, RegisterUserDto>({
       authKey: 'auth_key_with_32_bytes_randomly_',
       typeOrmUserEntity: UserEntity,

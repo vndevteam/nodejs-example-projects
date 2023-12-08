@@ -1,16 +1,16 @@
 version: '3.8'
 services:
-  db:
+  mysql:
     image: mysql
+    container_name: mysql
     restart: always
     environment:
-      - MYSQL_DATABASE=vndevteam_nest_auth
+      - MYSQL_DATABASE=nest_auth
       - MYSQL_ROOT_PASSWORD=12345678
     ports:
       - '3306:3306'
     volumes:
-      - db:/var/lib/mysql
-      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      - mysql:/var/lib/mysql
 volumes:
-  db:
+  mysql:
     driver: local
