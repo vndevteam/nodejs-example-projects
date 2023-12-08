@@ -1,5 +1,6 @@
 export const ENV_KEYS = {
   NODE_ENV: 'nodeEnv',
+  PORT: 'port',
   LOG_LEVEL: 'logLevel',
   DATABASE: 'db',
   JWT_SECRET: 'jwt.secret',
