@@ -50,8 +50,8 @@ async function bootstrap() {
     }),
   );
 
-  // Start listening on port 3000
-  await app.listen(3000);
+  // Start listening on port that is specified in the environment configuration
+  await app.listen(configService.get(ENV_KEYS.PORT));
 }
 
 // Call the bootstrap function to initialize the application
