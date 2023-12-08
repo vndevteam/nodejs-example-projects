@@ -12,7 +12,7 @@ import {
   UserAuthServiceType,
 } from './types';
 import { AuthController } from './auth.controller';
-import { LocalStrategy } from './strategies/local.strategy';
+import { LocalStrategy } from './strategy/local.strategy';
 import { PassportModule } from '@nestjs/passport';
 import { getOptions } from './helpers';
 
