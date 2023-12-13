@@ -1,25 +1,30 @@
 import { ModuleMetadata } from '@nestjs/common';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSourceOptions } from 'typeorm';
-import configuration from './configuration';
-import { dataSourceFactory } from './data-source';
+import { DataSource, DataSourceOptions } from 'typeorm';
 import { ApiModule } from '../api/api.module';
 import { BackgroundModule } from '../background/background.module';
+import { SharedModule } from '../shared/shared.module';
+import { AppConfigService } from '../shared/services/app-config.service';
 
 export function generateModulesSet() {
   const imports: ModuleMetadata['imports'] = [
-    ConfigModule.forRoot({ isGlobal: true, load: [configuration] }),
+    ConfigModule.forRoot({ isGlobal: true, envFilePath: '.env' }),
   ];
   let customModules: ModuleMetadata['imports'] = [];
 
   const dbModule = TypeOrmModule.forRootAsync({
-    imports: [ConfigModule],
-    inject: [ConfigService],
-    useFactory: (config: ConfigService) => {
-      return config.get('database') as DataSourceOptions;
+    imports: [SharedModule],
+    inject: [AppConfigService],
+    useFactory: (config: AppConfigService) =>
+      config.postgresConfig as DataSourceOptions,
+    dataSourceFactory: (options: DataSourceOptions) => {
+      if (!options) {
+        throw new Error('Invalid options passed');
+      }
+
+      return new DataSource(options).initialize();
     },
-    dataSourceFactory: dataSourceFactory,
   });
 
   const modulesSet = process.env.MODULES_SET || 'monolith';

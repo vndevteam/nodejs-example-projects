@@ -1,12 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ConfigService } from '@nestjs/config';
-import { ENV_KEYS, NODE_ENV } from './common/constants/constant';
 import { TransformInterceptor } from './common/interceptors/transform.interceptor';
 import { AllExceptionFilter } from './common/filters/all-exception.filter';
 import { BadRequestException, ValidationPipe } from '@nestjs/common';
 import { WinstonModule } from 'nest-winston';
 import { newInstance } from './config/winston.logger';
+import { SharedModule } from './shared/shared.module';
+import { AppConfigService } from './shared/services/app-config.service';
 
 /**
  * Asynchronous function to bootstrap the NestJS application.
@@ -14,24 +14,20 @@ import { newInstance } from './config/winston.logger';
  * - Retrieves the ConfigService for environment configuration.
  * - Sets up logging for errors and warnings in production.
  * - Applies global interceptors, exception filters, and validation pipes.
- * - Listens on port 3000 for incoming requests.
+ * - Start listening on port that is specified in the environment configuration
  */
 async function bootstrap() {
   // Create an instance of the NestJS application
   const app = await NestFactory.create(AppModule);
 
   // Retrieve the ConfigService for environment configuration
-  const configService = app.get<ConfigService>(ConfigService);
-
-  // Check if the application is running in production environment
-  const isProduction =
-    configService.get(ENV_KEYS.NODE_ENV) === NODE_ENV.PRODUCTION;
+  const configService = app.select(SharedModule).get(AppConfigService);
 
   // Set up logging for errors and warnings in production
-  if (isProduction) {
+  if (configService.isProduction) {
     app.useLogger(
       WinstonModule.createLogger({
-        instance: newInstance(configService.get(ENV_KEYS.LOG_LEVEL)),
+        instance: newInstance(configService.appConfig.logLevel),
       }),
     );
   }
@@ -51,8 +47,10 @@ async function bootstrap() {
   );
 
   // Start listening on port that is specified in the environment configuration
-  await app.listen(configService.get(ENV_KEYS.PORT));
+  await app.listen(configService.appConfig.port);
+
+  console.info(`Server running on ${await app.getUrl()}`);
 }
 
 // Call the bootstrap function to initialize the application
-bootstrap();
+void bootstrap();
