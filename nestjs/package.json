@@ -23,7 +23,7 @@
     "migration:generate": "pnpm run typeorm migration:generate -d ./src/config/migration.config.ts src/database/migrations/$NAME",
     "migration:create": "pnpm run typeorm migration:create src/database/migrations/$NAME",
     "migration:up": "pnpm run typeorm migration:run -d ./src/config/migration.config.ts",
-    "migration:down": "pnpm run typeorm -d ./src/config/migration.config.ts migration:revert"
+    "migration:down": "pnpm run typeorm migration:revert -d ./src/config/migration.config.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.2.10",
