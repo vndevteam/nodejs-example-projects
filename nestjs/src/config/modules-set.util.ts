@@ -1,3 +1,4 @@
+import * as path from 'path';
 import { ModuleMetadata } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
@@ -6,6 +7,12 @@ import { ApiModule } from '../api/api.module';
 import { BackgroundModule } from '../background/background.module';
 import { SharedModule } from '../shared/shared.module';
 import { AppConfigService } from '../shared/services/app-config.service';
+import {
+  AcceptLanguageResolver,
+  HeaderResolver,
+  I18nModule,
+  QueryResolver,
+} from 'nestjs-i18n';
 
 export function generateModulesSet() {
   const imports: ModuleMetadata['imports'] = [
@@ -27,14 +34,32 @@ export function generateModulesSet() {
     },
   });
 
+  const i18nModule = I18nModule.forRootAsync({
+    resolvers: [
+      { use: QueryResolver, options: ['lang'] },
+      AcceptLanguageResolver,
+      new HeaderResolver(['x-lang']),
+    ],
+    useFactory: (config: AppConfigService) => ({
+      fallbackLanguage: config.fallbackLanguage,
+      loaderOptions: {
+        path: path.join(__dirname, '/../i18n/'),
+        watch: config.isDevelopment,
+      },
+      logging: config.isDevelopment,
+    }),
+    imports: [SharedModule],
+    inject: [AppConfigService],
+  });
+
   const modulesSet = process.env.MODULES_SET || 'monolith';
 
   switch (modulesSet) {
     case 'monolith':
-      customModules = [ApiModule, BackgroundModule, dbModule];
+      customModules = [ApiModule, BackgroundModule, dbModule, i18nModule];
       break;
     case 'api':
-      customModules = [ApiModule, dbModule];
+      customModules = [ApiModule, dbModule, i18nModule];
       break;
     case 'background':
       customModules = [BackgroundModule];

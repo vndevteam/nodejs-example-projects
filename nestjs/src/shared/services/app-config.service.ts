@@ -23,6 +23,10 @@ export class AppConfigService {
     return this.nodeEnv === 'test';
   }
 
+  get fallbackLanguage(): string {
+    return this.getString('FALLBACK_LANGUAGE');
+  }
+
   get postgresConfig(): TypeOrmModuleOptions {
     const entities = [
       __dirname + '/../../**/*.entity{.ts,.js}',

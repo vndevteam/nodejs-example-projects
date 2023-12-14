@@ -8,7 +8,7 @@ export class CreateUsersTable1702454710209 implements MigrationInterface {
         "id"         uuid              NOT NULL DEFAULT uuid_generate_v4(),
         "first_name" character varying,
         "last_name"  character varying,
-        "role"       character varying, NOT NULL DEFAULT 'user',
+        "role"       character varying NOT NULL DEFAULT 'user',
         "username"   character varying,
         "email"      character varying,
         "password"   character varying,
