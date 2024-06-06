@@ -37,7 +37,7 @@ dependencies:
     version: 0.14.0
   mysql2:
     specifier: ^3.6.5
-    version: 3.6.5
+    version: 3.9.8
   passport:
     specifier: ^0.7.0
     version: 0.7.0
@@ -58,7 +58,7 @@ dependencies:
     version: 7.8.1
   typeorm:
     specifier: ^0.3.17
-    version: 0.3.17(mysql2@3.6.5)(pg@8.11.3)(ts-node@10.9.2)
+    version: 0.3.17(mysql2@3.9.8)(pg@8.11.3)(ts-node@10.9.2)
 
 devDependencies:
   '@nestjs/cli':
@@ -1166,7 +1166,7 @@ packages:
       '@nestjs/core': 10.2.10(@nestjs/common@10.2.10)(@nestjs/platform-express@10.2.10)(reflect-metadata@0.2.0)(rxjs@7.8.1)
       reflect-metadata: 0.2.0
       rxjs: 7.8.1
-      typeorm: 0.3.17(mysql2@3.6.5)(pg@8.11.3)(ts-node@10.9.2)
+      typeorm: 0.3.17(mysql2@3.9.8)(pg@8.11.3)(ts-node@10.9.2)
       uuid: 9.0.1
     dev: false
 
@@ -4582,8 +4582,8 @@ packages:
     resolution: {integrity: sha512-lcHwpNoggQTObv5apGNCTdJrO69eHOZMi4BNC+rTLER8iHAqGrUVeLh/irVIM7zTw2bOXA8T6uNPeujwOLg/2Q==}
     dev: false
 
-  /lru-cache@10.1.0:
-    resolution: {integrity: sha512-/1clY/ui8CzjKFyjdvwPWJUYKiFVXG2I2cY0ssG7h4+hwk+XOIX7ZSG9Q7TW8TW3Kp3BUSqgFWBLgL4PJ+Blag==}
+  /lru-cache@10.2.2:
+    resolution: {integrity: sha512-9hp3Vp2/hFQUiIwKo8XCeFVnrg8Pk3TYNPIR7tJADKi5YfcF7vEaK7avFHTlSy3kOKYaJQaalfEo6YuXdceBOQ==}
     engines: {node: 14 || >=16.14}
     dev: true
 
@@ -4820,8 +4820,8 @@ packages:
     resolution: {integrity: sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==}
     dev: true
 
-  /mysql2@3.6.5:
-    resolution: {integrity: sha512-pS/KqIb0xlXmtmqEuTvBXTmLoQ5LmAz5NW/r8UyQ1ldvnprNEj3P9GbmuQQ2J0A4LO+ynotGi6TbscPa8OUb+w==}
+  /mysql2@3.9.8:
+    resolution: {integrity: sha512-+5JKNjPuks1FNMoy9TYpl77f+5frbTklz7eb3XDwbpsERRLEeXiW2PDEkakYF50UuKU2qwfGnyXpKYvukv8mGA==}
     engines: {node: '>= 8.0'}
     dependencies:
       denque: 2.1.0
@@ -5143,7 +5143,7 @@ packages:
     resolution: {integrity: sha512-MkhCqzzBEpPvxxQ71Md0b1Kk51W01lrYvlMzSUaIzNsODdd7mqhiimSZlr+VegAz5Z6Vzt9Xg2ttE//XBhH3EQ==}
     engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
-      lru-cache: 10.1.0
+      lru-cache: 10.2.2
       minipass: 7.0.4
     dev: true
 
@@ -6217,7 +6217,7 @@ packages:
   /typedarray@0.0.6:
     resolution: {integrity: sha512-/aCDEGatGvZ2BIk+HmLf4ifCJFwvKFNb9/JeZPMulfgFracn9QFcAf5GO8B/mweUjSoblS5In0cWhqpfs/5PQA==}
 
-  /typeorm@0.3.17(mysql2@3.6.5)(pg@8.11.3)(ts-node@10.9.2):
+  /typeorm@0.3.17(mysql2@3.9.8)(pg@8.11.3)(ts-node@10.9.2):
     resolution: {integrity: sha512-UDjUEwIQalO9tWw9O2A4GU+sT3oyoUXheHJy4ft+RFdnRdQctdQ34L9SqE2p7LdwzafHx1maxT+bqXON+Qnmig==}
     engines: {node: '>= 12.9.0'}
     hasBin: true
@@ -6285,7 +6285,7 @@ packages:
       dotenv: 16.3.1
       glob: 8.1.0
       mkdirp: 2.1.6
-      mysql2: 3.6.5
+      mysql2: 3.9.8
       pg: 8.11.3
       reflect-metadata: 0.1.13
       sha.js: 2.4.11
