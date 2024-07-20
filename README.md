@@ -10,5 +10,6 @@
 
 ## Project sample
 
+* [NestJS boilerplate](https://github.com/vndevteam/nestjs-boilerplate)
 * Base nestjs: [nestjs](https://github.com/vndevteam/nodejs-base-projects/tree/main/nestjs)
 * Authentication nest: [nestjs-auth](https://github.com/vndevteam/nodejs-base-projects/tree/main/nestjs-auth)
